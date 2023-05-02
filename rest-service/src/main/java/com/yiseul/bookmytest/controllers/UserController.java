@@ -21,33 +21,33 @@ import reactor.core.publisher.Mono;
 
 @AllArgsConstructor
 @RestController
-@RequestMapping("/api/user")
+@RequestMapping("/api")
 public class UserController {
     
     @Autowired
     private UserService userService;
 
-    @GetMapping(value = "/users", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/admin/users", produces = MediaType.APPLICATION_JSON_VALUE)
     public Flux<User> getAllUsers() {
         return userService.getAllUsers();
     }
 
-    @GetMapping(value = "/user/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/user/user/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public Mono<User> getUser(@PathVariable String id) {
         return userService.getUser(id);
     }
 
-    @PostMapping(value = "/user", produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/user/user", produces = MediaType.APPLICATION_JSON_VALUE)
     public Mono<User> addUser(@Valid @RequestBody User user){
         return userService.addUser(user);
     }
 
-    @PutMapping(value = "/user/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @PutMapping(value = "/user/user/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public Mono<User> updateUser(@PathVariable String id, @Valid @RequestBody User user) {
         return userService.updateUser(id, user);
     }
 
-    @DeleteMapping(value = "/user/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @DeleteMapping(value = "/user/user/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public Mono<User> deleteUser(@PathVariable String id) {
         return userService.deletUser(id);
     }
