@@ -40,7 +40,7 @@ public class UserService {
             if(user.getUserId() == addedUser.getUserId()){
                 return monoAddUser;
             }
-            return Mono.error(new RuntimeException("Username already exist"));
+            return Mono.error(new RuntimeException("Username already exists"));
         });
     }
 
