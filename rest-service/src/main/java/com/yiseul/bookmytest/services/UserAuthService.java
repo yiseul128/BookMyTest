@@ -1,6 +1,6 @@
 /**
  * Developer Name: Yiseul Ko
- * Date: 2023 April 30
+ * Date: 2023 May 3
  */
 
 package com.yiseul.bookmytest.services;
@@ -66,5 +66,19 @@ public class UserAuthService {
         })
         .switchIfEmpty(Mono.error(new ResponseStatusException(HttpStatus.NOT_FOUND, "Username doesn't exist")));
     };
+
+    public Mono<User> updateUser(String id, User user) {
+        Mono<User> monoExistingUser = userRepository.findById(id).switchIfEmpty(Mono.error(new RuntimeException("User doesn't exist")));
+
+        return monoExistingUser.flatMap(existingUser-> {
+            return checkCredential(user.getUsername(), user.getPassword())
+            .flatMap(credential -> {
+                existingUser.setFirstName(user.getFirstName());
+                existingUser.setLastName(user.getLastName());
+                return userRepository.save(existingUser);
+            });
+            
+        });
+    }
 
 }

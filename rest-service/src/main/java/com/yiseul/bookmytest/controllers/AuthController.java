@@ -1,15 +1,18 @@
 /**
  * Developer Name: Yiseul Ko
- * Date: 2023 April 30
+ * Date: 2023 May 3
  */
 
 package com.yiseul.bookmytest.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -22,6 +25,7 @@ import com.yiseul.bookmytest.models.User;
 import com.yiseul.bookmytest.services.UserAuthService;
 import com.yiseul.bookmytest.utils.JwtUtil;
 
+import jakarta.validation.Valid;
 import reactor.core.publisher.Mono;
 
 @RestController
@@ -59,5 +63,10 @@ public class AuthController {
         catch(Exception e){
             return Mono.error(new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Authentication failed", e));
         }
+    }
+
+    @PutMapping(value = "/user/update-profile/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public Mono<User> updateUser(@PathVariable String id, @Valid @RequestBody User user) {
+        return userAuthService.updateUser(id, user);
     }
 }

@@ -1,3 +1,8 @@
+/**
+ * Developer Name: Yiseul Ko
+ * Date: 2023 May 3
+ */
+
 package com.yiseul.bookmytest.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -6,7 +11,6 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -40,11 +44,6 @@ public class UserController {
     @PostMapping(value = "/user/user", produces = MediaType.APPLICATION_JSON_VALUE)
     public Mono<User> addUser(@Valid @RequestBody User user){
         return userService.addUser(user);
-    }
-
-    @PutMapping(value = "/user/user/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Mono<User> updateUser(@PathVariable String id, @Valid @RequestBody User user) {
-        return userService.updateUser(id, user);
     }
 
     @DeleteMapping(value = "/user/user/{id}", produces = MediaType.APPLICATION_JSON_VALUE)

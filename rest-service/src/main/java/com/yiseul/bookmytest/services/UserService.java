@@ -1,6 +1,6 @@
 /**
  * Developer Name: Yiseul Ko
- * Date: 2023 April 30
+ * Date: 2023 May 3
  */
 
 package com.yiseul.bookmytest.services;
@@ -41,16 +41,6 @@ public class UserService {
                 return monoAddUser;
             }
             return Mono.error(new RuntimeException("Username already exists"));
-        });
-    }
-
-    public Mono<User> updateUser(String id, User user) {
-        Mono<User> monoExistingUser = userRepository.findById(id).switchIfEmpty(Mono.error(new RuntimeException("User doesn't exist")));
-
-        return monoExistingUser.flatMap(existingUser-> {
-            existingUser.setFirstName(user.getFirstName());
-            existingUser.setLastName(user.getLastName());
-            return userRepository.save(existingUser);
         });
     }
 
