@@ -1,12 +1,13 @@
 /**
  * Developer Name: Yiseul Ko
- * Date: 2023 May 3
+ * Date: 2023 May 4
  */
 
 package com.yiseul.bookmytest.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -14,6 +15,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import com.yiseul.bookmytest.authentication.Credentials;
 import com.yiseul.bookmytest.authentication.Role;
+import com.yiseul.bookmytest.models.ChangePasswordRequest;
 import com.yiseul.bookmytest.models.User;
 import com.yiseul.bookmytest.repositories.UserRepository;
 
@@ -79,6 +81,20 @@ public class UserAuthService {
             });
             
         });
+    }
+
+    public Mono<ResponseEntity<String>> changePassword(String userId, ChangePasswordRequest request) {
+        return userRepository.findById(userId)
+                .flatMap(user -> {
+                    if (passwordEncoder.matches(request.getOldPassword(), user.getPassword())) {
+                        user.setPassword(passwordEncoder.encode(request.getNewPassword()));
+                        return userRepository.save(user)
+                                .thenReturn(ResponseEntity.ok("Password changed successfully"));
+                    } else {
+                        return Mono.just(ResponseEntity.badRequest().body("Incorrect old password"));
+                    }
+                })
+                .switchIfEmpty(Mono.just(ResponseEntity.notFound().build()));
     }
 
 }
