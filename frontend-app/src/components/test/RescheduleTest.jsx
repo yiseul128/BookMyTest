@@ -6,17 +6,21 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Alert, Button, Col, Container, Form, Row } from "react-bootstrap";
+import { useParams } from "react-router-dom";
 import { useAuth } from "../../AuthContext";
 
-const BookTest = () => {
+const RescheduleTest = () => {
+    const id = useParams().id;
+
     const auth = useAuth();
     const [msg, setMsg] = useState();
     const [variant, setVariant] = useState();
     const [ test, setTest] = useState({
+        testCode: "",
         centreCode: "",
         certificationCode: "",
         dateAndTime: "",
-        status: "Reserved",
+        status: "",
         candidateId: ""
     });
     const [certifications, setCertifications] = useState([]);
@@ -52,42 +56,56 @@ const BookTest = () => {
                 setTestCentres(response.data);
             }
 
+            const getTestToReschedule = async() => {
+                const token = auth.getToken();
+                const response = await axios.get(`${process.env.REACT_APP_BASE_URL_USER}/test/${id}`, {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
+
+                setTest(response.data);
+            }
+
             getCerts();
             getCentres();
+            getTestToReschedule();
             
         } catch (error) {
-            console.error("Getting cert or center: ", error);
+            console.error("Getting cert, center, or test: ", error);
         }
     }, []);
-    
 
-    const handleBooking = async (event) => {
+    const handleReschedule = async (event) => {
         event.preventDefault();
-        console.log(test);
     
         try {
+            delete test.result;
             const token = auth.getToken();
-            const response = await axios.post(`${process.env.REACT_APP_BASE_URL_USER}/test`, test, {
+            const response = await axios.put(`${process.env.REACT_APP_BASE_URL_USER}/test/${test.testCode}`, {...test, status: "Rescheduled"}, {
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': `Bearer ${token}`
                 }
             });
-    
+            
             if (response.data.testCode) {
+                console.log(response.data);
                 setVariant('success');
-                setMsg("Your booking completed successfully!");
+                setMsg("Test rescheduled successfully!");
             }
         } catch (error) {
             setVariant('danger');
-            setMsg("Booking test failed: please check if you selected date & time that is at least 7 days away from the current date, and it does not conflict with other tests reserved.");
-            console.error("Booking test error: ", error);
+            setMsg("Rescheduling test failed: please check if you selected date & time that is at least 7 days away from the current date, and it does not conflict with other tests reserved.");
+            console.error("Rescheduling test error: ", error);
         }
+            
       };
 
     return (
         <Container>
-            <h1>Book Test</h1>
+            <h1>Reschedule Test</h1>
             {(
                 ()=>{
                     if(msg){
@@ -100,7 +118,7 @@ const BookTest = () => {
                 }
             )()}
 
-            <Form onSubmit={handleBooking}>
+            <Form onSubmit={handleReschedule}>
                 <Row className='my-3'>
                 <Col md>
                     <Form.Group controlId='centreCode'>
@@ -140,7 +158,7 @@ const BookTest = () => {
 
                 <div className="d-flex justify-content-center my-3">
                 <Button type="submit">
-                    Reserve
+                    Reschedule
                 </Button>
                 </div>
             </Form>
@@ -148,4 +166,4 @@ const BookTest = () => {
     )
 }
 
-export default BookTest;
+export default RescheduleTest;
