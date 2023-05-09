@@ -41,7 +41,7 @@ const Register = () => {
             setMsg("Register failed: please try again");
             console.error("Register error: ", error);
         }
-      };
+    };
 
     return (
         <Container>

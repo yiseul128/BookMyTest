@@ -63,7 +63,6 @@ const BookTest = () => {
 
     const handleBooking = async (event) => {
         event.preventDefault();
-        console.log(test);
     
         try {
             const token = auth.getToken();

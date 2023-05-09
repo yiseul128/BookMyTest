@@ -1,6 +1,6 @@
 /**
  * Developer Name: Yiseul Ko
- * Date: 2023 May 6
+ * Date: 2023 May 7
  */
 
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -17,6 +17,10 @@ import RescheduleTest from './components/test/RescheduleTest';
 import TestResult from './components/test/TestResult';
 import TestHistory from './components/test/TestHistory';
 import NavBar from './components/NavBar';
+import AdminProtectedComponent from './components/AdminProtectedComponent';
+import TestCentres from './components/testCentre/TestCentres';
+import AddTestCentre from './components/testCentre/AddTestCentre';
+import UpdateTestCentre from './components/testCentre/UpdateTestCentre';
 
 function App() {
 
@@ -38,6 +42,10 @@ function App() {
           <Route path="/history" element={< ProtectedComponent comp={TestHistory} />}/>
           <Route path="/reschedule-test/:id" element={< ProtectedComponent comp={RescheduleTest} />} />
           <Route path="/test-result/:id" element={< ProtectedComponent comp={TestResult} />} />
+
+          <Route path='/test-centres' element={<AdminProtectedComponent comp={TestCentres} />} />
+          <Route path='/add-test-centre' element={<AdminProtectedComponent comp={AddTestCentre} />} />
+          <Route path="/update-test-centre/:id" element={< AdminProtectedComponent comp={UpdateTestCentre} />} />
         </Routes>
       </Router>
     </AuthProvider>

@@ -1,6 +1,6 @@
 /**
  * Developer Name: Yiseul Ko
- * Date: 2023 May 5
+ * Date: 2023 May 7
  */
 
 import React, { createContext, useContext } from 'react';
@@ -41,12 +41,25 @@ export const AuthProvider = ({ children }) => {
         return localStorage.getItem("token");
     }
 
+    const checkAdmin = () => {
+        if(checkLoggedin()){
+            const roles = getUser().roles;
+            for(let i=0; i<roles.length; i++){
+                if(roles[i] === "ADMIN"){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
     const value = {
         login, 
         logout,
         checkLoggedin,
         getUser,
-        getToken
+        getToken,
+        checkAdmin
     };
 
     return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
