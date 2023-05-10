@@ -84,7 +84,7 @@ const UpdateTestCentre = () => {
                     <Col md>
                         <Form.Group controlId="centreCode">
                             <Form.Label>Test Centre Code*</Form.Label>
-                            <Form.Control required type="text" placeholder="Enter test centre code (e.g. TC001)" onChange={e=>setTestCentre({...testCentre, centreCode: e.target.value})} value={testCentre.centreCode}></Form.Control>
+                            <Form.Control disabled type="text" placeholder="Enter test centre code (e.g. TC001)" onChange={e=>setTestCentre({...testCentre, centreCode: e.target.value})} value={testCentre.centreCode}></Form.Control>
                         </Form.Group>
                     </Col>
                 </Row>

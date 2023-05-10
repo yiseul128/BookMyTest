@@ -21,6 +21,9 @@ import AdminProtectedComponent from './components/AdminProtectedComponent';
 import TestCentres from './components/testCentre/TestCentres';
 import AddTestCentre from './components/testCentre/AddTestCentre';
 import UpdateTestCentre from './components/testCentre/UpdateTestCentre';
+import Certifications from './components/certification/Certifications';
+import AddCertification from './components/certification/AddCertification';
+import UpdateCertification from './components/certification/UpdateCertification';
 
 function App() {
 
@@ -46,6 +49,9 @@ function App() {
           <Route path='/test-centres' element={<AdminProtectedComponent comp={TestCentres} />} />
           <Route path='/add-test-centre' element={<AdminProtectedComponent comp={AddTestCentre} />} />
           <Route path="/update-test-centre/:id" element={< AdminProtectedComponent comp={UpdateTestCentre} />} />
+          <Route path='/certifications' element={<AdminProtectedComponent comp={Certifications} />} />
+          <Route path='/add-certification' element={<AdminProtectedComponent comp={AddCertification} />} />
+          <Route path='/update-certification/:id' element={<AdminProtectedComponent comp={UpdateCertification} />} />
         </Routes>
       </Router>
     </AuthProvider>
