@@ -10,7 +10,6 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.yiseul.bookmytest.authentication.Role;
 
-import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 
@@ -18,7 +17,6 @@ import lombok.AllArgsConstructor;
 @Document
 public class User {
     @Id
-    @Email(message = "Invalid email address")
     private String userId;
 
     @NotBlank

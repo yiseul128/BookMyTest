@@ -24,6 +24,7 @@ import UpdateTestCentre from './components/testCentre/UpdateTestCentre';
 import Certifications from './components/certification/Certifications';
 import AddCertification from './components/certification/AddCertification';
 import UpdateCertification from './components/certification/UpdateCertification';
+import Profile from './components/auth/Profile';
 
 function App() {
 
@@ -40,6 +41,7 @@ function App() {
           <Route path="/login" element={<Login isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />} />
           <Route path="/logout" element={<Logout isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn}/>}/>
           <Route path="/signup" element={<Register />} />
+          <Route path='/profile' element={<ProtectedComponent comp={Profile} />} />
 
           <Route path='/book-test' element={<ProtectedComponent comp={BookTest}/>}/>
           <Route path="/history" element={< ProtectedComponent comp={TestHistory} />}/>
@@ -49,6 +51,7 @@ function App() {
           <Route path='/test-centres' element={<AdminProtectedComponent comp={TestCentres} />} />
           <Route path='/add-test-centre' element={<AdminProtectedComponent comp={AddTestCentre} />} />
           <Route path="/update-test-centre/:id" element={< AdminProtectedComponent comp={UpdateTestCentre} />} />
+          
           <Route path='/certifications' element={<AdminProtectedComponent comp={Certifications} />} />
           <Route path='/add-certification' element={<AdminProtectedComponent comp={AddCertification} />} />
           <Route path='/update-certification/:id' element={<AdminProtectedComponent comp={UpdateCertification} />} />

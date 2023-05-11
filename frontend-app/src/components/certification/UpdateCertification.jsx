@@ -31,7 +31,7 @@ const UpdateCertification = () => {
                         'Content-Type': 'application/json',
                         'Authorization': `Bearer ${token}`
                     }
-                })
+                });
 
                 setCertification(response.data);
             }
