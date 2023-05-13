@@ -22,8 +22,18 @@ export const AuthProvider = ({ children }) => {
     }
 
     const checkLoggedin = () => {
-        if(localStorage.getItem('token')) {
-            return true;
+        const decoded = getUser();
+
+        // check if token exists
+        if(decoded) {
+            // check if the token is expired
+            const expTimestamp = decoded.exp;
+            const now = Math.floor(Date.now() / 1000); 
+            if (now > expTimestamp) {
+                return false;
+            } else {
+                return true;
+            }
         }
 
         return false;
