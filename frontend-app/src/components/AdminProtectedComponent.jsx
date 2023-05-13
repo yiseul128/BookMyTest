@@ -1,6 +1,6 @@
 /**
  * Developer Name: Yiseul Ko
- * Date: 2023 May 7
+ * Date: 2023 May 12
  */
 
 import React, { useEffect } from 'react';
@@ -13,7 +13,7 @@ const AdminProtectedComponent = (props) => {
 
   useEffect(() => {
     if (!auth.checkAdmin()) {
-      navigate("/");
+      navigate("/history");
     }
   }, [auth, navigate]);
 

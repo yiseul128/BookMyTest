@@ -1,6 +1,6 @@
 /**
  * Developer Name: Yiseul Ko
- * Date: 2023 May 7
+ * Date: 2023 May 12
  */
 
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -37,7 +37,7 @@ function App() {
         <NavBar isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
         
         <Routes>
-          <Route path='/' element={<Navigate to="/history" />}/>
+          <Route path='/' element={<Navigate to="/certifications" />}/>
           <Route path="/login" element={<Login isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />} />
           <Route path="/logout" element={<Logout isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn}/>}/>
           <Route path="/signup" element={<Register />} />

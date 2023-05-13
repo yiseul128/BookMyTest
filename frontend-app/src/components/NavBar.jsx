@@ -19,6 +19,9 @@ export default function NavBar ({isLoggedIn, setIsLoggedIn}) {
         setIsLoggedIn(true);
         setUserRole(auth.checkAdmin() ? "ADMIN" : "USER");
       }
+      else{
+        setIsLoggedIn(false);
+      }
     }, [isLoggedIn])
 
     return ( 

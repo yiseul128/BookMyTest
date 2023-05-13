@@ -1,6 +1,6 @@
 /**
  * Developer Name: Yiseul Ko
- * Date: 2023 May 7
+ * Date: 2023 May 12
  */
 
 import React, { createContext, useContext } from 'react';
@@ -30,6 +30,7 @@ export const AuthProvider = ({ children }) => {
             const expTimestamp = decoded.exp;
             const now = Math.floor(Date.now() / 1000); 
             if (now > expTimestamp) {
+                logout();
                 return false;
             } else {
                 return true;
