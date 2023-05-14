@@ -1,6 +1,6 @@
 /**
  * Developer Name: Yiseul Ko
- * Date: 2023 May 12
+ * Date: 2023 May 13
  */
 
 import { useEffect, useState } from 'react';
@@ -46,6 +46,7 @@ export default function NavBar ({isLoggedIn, setIsLoggedIn}) {
                       <Nav.Link as={Link} to="/history" >History</Nav.Link>
                     </>
                   } 
+                  <Nav.Link as={Link} to="/profile" >Profile</Nav.Link>
                   <Nav.Link as={Link} to="/logout" >Log out</Nav.Link>
                   </>         
                 ) : (

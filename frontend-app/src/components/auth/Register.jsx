@@ -1,6 +1,6 @@
 /**
  * Developer Name: Yiseul Ko
- * Date: 2023 May 5
+ * Date: 2023 May 13
  */
 
 import React, { useState, useEffect } from "react";
@@ -38,7 +38,13 @@ const Register = () => {
                 navigate("/login");
             }
         } catch (error) {
-            setMsg("Register failed: please try again");
+            if(error.response?.data?.message){
+                setMsg("Register failed: "+ error.response.data.message);
+            }
+            else{
+                setMsg("Register failed: please try again");
+            }
+            
             console.error("Register error: ", error);
         }
     };

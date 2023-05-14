@@ -1,6 +1,6 @@
 /**
  * Developer Name: Yiseul Ko
- * Date: 2023 May 10
+ * Date: 2023 May 13
  */
 
 import axios from "axios";
@@ -64,7 +64,14 @@ const Profile = () => {
         }
         catch(error) {
             setVariant('danger');
-            setMsg("Updating profile failed: "); // TODO: err msg display
+
+            if(error.response?.data?.message){
+                setMsg("Updating profile failed: "+ error.response.data.message);
+            }
+            else{
+                setMsg("Updating profile failed: please try again");
+            }
+
             console.error("Updating profile error: ", error);
         }
     }
@@ -87,7 +94,14 @@ const Profile = () => {
         }
         catch(error) {
             setVariant('danger');
-            setMsg("Resetting password failed: "); // TODO: err msg display
+
+            if(error.response?.data){
+                setMsg("Resetting password failed: "+ error.response.data);
+            }
+            else{
+                setMsg("Resetting password failed: please try again");
+            }
+
             console.error("Resetting password error: ", error);
         }
     }
@@ -120,7 +134,7 @@ const Profile = () => {
                 <Col md>
                     <Form.Group controlId='password'>
                     <Form.Label>Password*</Form.Label>
-                    <Form.Control required type="password" placeholder='Enter current password' onChange={e=> setUser({...user, password: e.target.value})} value={user.password}/>
+                    <Form.Control required type="password" placeholder='Enter current password to change your profile info' onChange={e=> setUser({...user, password: e.target.value})} value={user.password}/>
                     </Form.Group>
                 </Col>
                 </Row>
@@ -139,19 +153,6 @@ const Profile = () => {
                     <Form.Group controlId='lastName'>
                     <Form.Label>Last Name*</Form.Label>
                     <Form.Control required type="text" placeholder='Enter last name' onChange={e=> setUser({...user, lastName: e.target.value})} value={user.lastName}/>
-                    </Form.Group>
-                </Col>
-                </Row>
-
-                <Row className='my-3'>
-                <Col md>
-                    <Form.Group controlId='role'>
-                        <Form.Label>Role*</Form.Label>
-                        <Form.Control as="select" required onChange={e=> setUser({...user, role: e.target.value})} value={user.role}>
-                            <option></option>
-                            <option value="USER">USER</option>
-                            <option value="ADMIN">ADMIN</option>
-                        </Form.Control>
                     </Form.Group>
                 </Col>
                 </Row>
